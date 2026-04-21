@@ -1,20 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Thêm mới Bệnh nhân</title>
+    <style>
+        .form-group { margin-bottom: 15px; }
+        .error { color: red; font-size: 0.9em; }
+        label { display: inline-block; width: 120px; }
+    </style>
 </head>
 <body>
+<h2>Nhập thông tin bệnh nhân</h2>
+
 <form th:action="@{/patients/save}" th:object="${patient}" method="post">
-    <div>
-        Mã BN: <input type="text" th:field="*{id}">
-        <p th:if="${#fields.hasErrors('id')}" th:errors="*{id}" style="color:red"></p>
+
+    <div class="form-group">
+        <label>Mã BN:</label>
+        <input type="text" th:field="*{id}" placeholder="VD: BN001">
+        <p class="error" th:if="${#fields.hasErrors('id')}" th:errors="*{id}"></p>
     </div>
-    <div>
-        Họ tên: <input type="text" th:field="*{fullName}">
-        <p th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}" style="color:red"></p>
+
+    <div class="form-group">
+        <label>Họ tên:</label>
+        <input type="text" th:field="*{fullName}">
+        <p class="error" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></p>
     </div>
+
+    <div class="form-group">
+        <label>Ngày sinh:</label>
+        <input type="date" th:field="*{dob}">
+        <p class="error" th:if="${#fields.hasErrors('dob')}" th:errors="*{dob}"></p>
+    </div>
+
+    <div class="form-group">
+        <label>Số điện thoại:</label>
+        <input type="tel" th:field="*{phone}" placeholder="0xxxxxxxxx">
+        <p class="error" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></p>
+    </div>
+
+    <div class="form-group">
+        <label>Địa chỉ:</label>
+        <input type="text" th:field="*{address}">
+        <p class="error" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></p>
+    </div>
+
+    <div class="form-group">
+        <label>Triệu chứng:</label>
+        <textarea th:field="*{symptom}"></textarea>
+        <p class="error" th:if="${#fields.hasErrors('symptom')}" th:errors="*{symptom}"></p>
+    </div>
+
+    <div class="form-group">
+        <label>Ngày nhập viện:</label>
+        <input type="date" th:field="*{admissionDate}">
+        <p class="error" th:if="${#fields.hasErrors('admissionDate')}" th:errors="*{admissionDate}"></p>
+    </div>
+
+    <hr>
     <button type="submit">Lưu bệnh nhân</button>
+    <button type="reset">Nhập lại</button>
+
 </form>
 </body>
 </html>
