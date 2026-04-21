@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách Bệnh nhân</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { color: #2c3e50; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #3498db; color: white; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+        tr:hover { background-color: #f1f1f1; }
+        .btn-add {
+            background-color: #27ae60;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        .no-data { text-align: center; color: #7f8c8d; font-style: italic; }
+    </style>
+</head>
+<body>
+
+<h1>Hệ thống Quản lý Bệnh nhân</h1>
+
+<a th:href="@{/patients/add}" class="btn-add">+ Thêm bệnh nhân mới</a>
+
+<table>
+    <thead>
+    <tr>
+        <th>Mã BN</th>
+        <th>Họ và Tên</th>
+        <th>Ngày sinh</th>
+        <th>Số điện thoại</th>
+        <th>Địa chỉ</th>
+        <th>Triệu chứng</th>
+        <th>Ngày nhập viện</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="p : ${patients}">
+        <td th:text="${p.id}"></td>
+        <td th:text="${p.fullName}"></td>
+        <td th:text="${#temporals.format(p.dob, 'dd/MM/yyyy')}"></td>
+        <td th:text="${p.phone}"></td>
+        <td th:text="${p.address}"></td>
+        <td th:text="${p.symptom}"></td>
+        <td th:text="${p.admissionDate}"></td>
+    </tr>
+
+    <tr th:if="${#lists.isEmpty(patients)}">
+        <td colspan="7" class="no-data">Chưa có bệnh nhân nào trong danh sách.</td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
